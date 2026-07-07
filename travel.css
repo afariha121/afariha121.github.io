@@ -1,0 +1,405 @@
+/* ==========================================================================
+   Fariha, Elsewhere — the travel side
+   Loaded after styles.css; re-tints the whole site around her casual
+   portrait: soft gingham blue from the shirt, gold from the hoop earrings,
+   airy sky-and-sand palette. Adds the travel-only components.
+   ========================================================================== */
+
+:root {
+  --color-text: #22333c;
+  --color-muted: #5f7580;
+  --color-bg: #f7fbfc;
+  --color-panel: #e9f2f5;
+  --color-primary: #2e6d84;        /* sea blue, from the shirt */
+  --color-primary-deep: #143c4d;
+  --color-accent: #e3a44e;         /* warm gold, from the earrings */
+  --color-accent-dark: #b0752a;
+  --color-teal: #4da3b8;
+  --color-ink: #0f2630;
+  --color-border: #d9e7ea;
+}
+
+::selection { background: var(--color-accent); color: var(--color-ink); }
+
+/* ===================== Hero ===================== */
+
+.travel-hero {
+  padding: 5rem 1.5rem 2rem;
+}
+
+.travel-hero-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 390px 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.travel-hero-media {
+  display: block;
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+  background-color: var(--color-panel);
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 0 6px var(--color-bg), 0 0 0 8px var(--color-accent),
+              0 18px 40px rgba(15, 38, 48, 0.18);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.travel-hero-media:hover {
+  transform: translateY(-4px) rotate(-0.5deg);
+  box-shadow: 0 0 0 6px var(--color-bg), 0 0 0 8px var(--color-accent),
+              0 26px 55px rgba(15, 38, 48, 0.25);
+}
+
+.travel-hero h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  line-height: 1.2;
+  margin-bottom: 1.3rem;
+}
+
+.travel-intro {
+  font-size: 1.05rem;
+  color: var(--color-text);
+}
+
+.travel-hero-caption {
+  margin-top: 1.4rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-accent-dark);
+}
+
+/* ===================== Destinations: tabs + post ===================== */
+
+.destination-section { padding: 0 1.5rem 3.5rem; }
+
+.dest-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 0 auto 2.5rem;
+}
+
+.dest-tab {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary-deep);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.55rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease,
+              border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dest-tab:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+.dest-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(20, 60, 77, 0.25);
+}
+
+.dest-panel { display: none; }
+
+.dest-panel.active {
+  display: block;
+  animation: panel-in 0.45s ease;
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dest-panel.active { animation: none; }
+}
+
+/* one photo + one story, like an Instagram post */
+.insta-post {
+  max-width: 940px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(15, 38, 48, 0.12);
+}
+
+.post-photo {
+  display: block;
+  min-height: 460px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.post-photo.coming {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-photo.coming::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.post-photo.coming span {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #fdfbf5;
+  border: 1px dashed rgba(253, 251, 245, 0.7);
+  border-radius: 999px;
+  padding: 0.5rem 1.4rem;
+}
+
+.post-side {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-panel);
+}
+
+.post-head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.3rem 1.8rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.post-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: var(--color-bg);
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-accent);
+  flex-shrink: 0;
+}
+
+.post-id { line-height: 1.35; }
+
+.post-id strong {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--color-primary-deep);
+  display: block;
+}
+
+.post-loc {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+.post-story {
+  padding: 1.6rem 1.8rem;
+  flex: 1;
+}
+
+.post-story p { margin-bottom: 1rem; }
+.post-story p:last-child { margin-bottom: 0; }
+
+.post-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.8rem 1.4rem;
+  border-top: 1px dotted var(--color-border);
+}
+
+.post-icons {
+  font-size: 1.15rem;
+  letter-spacing: 0.35em;
+  color: var(--color-primary);
+}
+
+.post-sign {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--color-accent-dark);
+  text-align: right;
+}
+
+/* ===================== Story panels (travel tints) ===================== */
+
+.media-d {
+  background: radial-gradient(circle at 25% 30%, rgba(227, 164, 78, 0.45), transparent 55%),
+              linear-gradient(150deg, var(--color-primary-deep) 0%, #2f6b5c 60%, #7fb98a 160%);
+}
+
+.media-e {
+  background: radial-gradient(circle at 70% 20%, rgba(247, 251, 252, 0.25), transparent 50%),
+              linear-gradient(210deg, #6fb3c9 -20%, var(--color-primary) 45%, var(--color-primary-deep) 100%);
+}
+
+.media-f {
+  background: radial-gradient(circle at 80% 75%, rgba(15, 38, 48, 0.4), transparent 60%),
+              linear-gradient(150deg, #f0e3c8 0%, #d0a45e 60%, var(--color-primary) 175%);
+}
+
+.story-body > p { color: #3a4d57; }
+
+/* ===================== Photo journal ===================== */
+
+.photo-section { padding: 0 1.5rem 3rem; }
+
+.photo-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+
+.photo-tile {
+  position: relative;
+  height: 240px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: 0 2px 10px rgba(15, 38, 48, 0.06);
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.photo-tile:hover {
+  box-shadow: 0 16px 36px rgba(15, 38, 48, 0.16);
+  transform: translateY(-4px);
+}
+
+.reveal.photo-tile { transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.35s ease; }
+.reveal.photo-tile.in-view { transition: box-shadow 0.35s ease, transform 0.35s ease; }
+
+.photo-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.photo-tile span {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 2rem 1.2rem 0.9rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: #fdfbf5;
+  background: linear-gradient(transparent, rgba(15, 38, 48, 0.65));
+}
+
+/* placeholder tints — swap for photos */
+.tile-a { background: linear-gradient(160deg, #35708a, #143c4d); }
+.tile-b { background: linear-gradient(200deg, #d0a45e, #7a5a2e); }
+.tile-c { background: linear-gradient(150deg, #6fb3c9, #2e6d84); }
+.tile-d { background: linear-gradient(170deg, #8fc3d4, #35708a); }
+.tile-e { background: linear-gradient(190deg, #c98f4a, #8a5c26); }
+.tile-f { background: linear-gradient(160deg, #2f6b5c, #143c4d); }
+
+/* ===================== Footprint ===================== */
+
+.footprint-section { padding: 0 1.5rem 3rem; }
+
+.footprint-list {
+  max-width: 760px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.footprint-list li {
+  font-size: 0.92rem;
+  padding: 0.55rem 1.3rem;
+  background: var(--color-panel);
+  border-color: var(--color-border);
+}
+
+.footprint-list .pill-more {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--color-accent-dark);
+  color: var(--color-accent-dark);
+  font-style: italic;
+}
+
+/* ===================== Books ===================== */
+
+.books-section { padding: 0 1.5rem 5rem; }
+
+.books-card {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--color-panel);
+  border-left: 4px solid var(--color-accent);
+  padding: 2rem 2.4rem;
+}
+
+.book-list { list-style: none; margin-top: 1rem; }
+.book-list li { padding: 0.5rem 0; border-bottom: 1px dotted var(--color-border); }
+.book-list li:last-child { border-bottom: none; }
+
+/* ===================== Footer tweaks ===================== */
+
+.footer-button { color: var(--color-ink); background: var(--color-accent); }
+.footer-button:hover { background: #f0bc6d; }
+
+.footer-link {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 2px;
+}
+
+.footer-link:hover { color: #fdfbf5; }
+
+/* ===================== Responsive ===================== */
+
+@media (max-width: 900px) {
+  .photo-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .travel-hero { text-align: center; }
+  .travel-hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .travel-hero-media { max-width: 330px; width: 100%; margin: 0 auto; }
+
+  .insta-post { grid-template-columns: 1fr; }
+  .post-photo { min-height: 0; aspect-ratio: 4 / 5; }
+}
+
+@media (max-width: 600px) {
+  .photo-grid { grid-template-columns: 1fr; }
+}
